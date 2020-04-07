@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "numiner"
+version = "0.1.0"
+description = "NUM Miner (Tool to create open dataset for Handwritten Text Recognition)"
+authors = ["Khasbilegt.TS <khasbilegt.ts@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+opencv-python = "^4.2.0"
+pandas = "^1.0.3"
+
+[tool.poetry.dev-dependencies]
+black = "^19.10b0"
+flake8 = "^3.7.9"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
