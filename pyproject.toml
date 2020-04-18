@@ -4,6 +4,13 @@ version = "0.1.0"
 description = "NUM Miner (Tool to create open dataset for Handwritten Text Recognition)"
 authors = ["Khasbilegt.TS <khasbilegt.ts@gmail.com>"]
 license = "MIT"
+readme = "README.md"
+repository = "https://github.com/khasbilegt/numiner/"
+keywords = ["HTR",
+            "Handwritten Text Recognition",
+            "Tool",
+            "Packages",
+            "Packaging"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
@@ -16,7 +23,7 @@ flake8 = "^3.7.9"
 isort = "^4.3.21"
 
 [tool.poetry.scripts]
-run = "numiner:main"
+run = "numiner.__main__:main"
 
 [tool.black]
 line-length = 120
