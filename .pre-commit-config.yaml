@@ -1,18 +1,32 @@
 repos:
-  - repo: https://github.com/asottile/seed-isort-config
-    rev: v1.9.3
-    hooks:
-      - id: seed-isort-config
-  - repo: https://github.com/pre-commit/mirrors-isort
-    rev: v4.3.21
+  - repo: local
     hooks:
       - id: isort
-  - repo: https://github.com/ambv/black
-    rev: stable
-    hooks:
+        name: isort
+        stages: [commit]
+        language: system
+        entry: poetry run isort
+        types: [python]
+
       - id: black
-        language_version: python3.8
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.3.0
-    hooks:
+        name: black
+        stages: [commit]
+        language: system
+        entry: poetry run black
+        types: [python]
+
       - id: flake8
+        name: flake8
+        stages: [commit]
+        language: system
+        entry: poetry run flake8
+        types: [python]
+        exclude: setup.py
+
+      - id: mypy
+        name: mypy
+        stages: [commit]
+        language: system
+        entry: poetry run mypy
+        types: [python]
+        pass_filenames: false
