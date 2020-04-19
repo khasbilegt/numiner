@@ -1,11 +1,24 @@
-import sys
+import argparse
+
+from pathlib import Path
+from pprint import pprint
+
+from numiner import __version__
+
+
+def get_args():
+    parser = argparse.ArgumentParser(usage="%(prog)s [OPTIONS] | [<path_1>] ... [<path_N>]", allow_abbrev=False)
+    parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
+    parser.add_argument("-v", "--verbose", action="store_true", help="increase output verbosity")
+    parser.add_argument(
+        "path", nargs="+", type=Path, help="A path(s) to a folder or a sheet that's holding the data to mine",
+    )
+    return vars(parser.parse_args())
 
 
 def main():
-    args = [a for a in sys.argv[1:] if not a.startswith("-")]
-    opts = [o for o in sys.argv[1:] if o.startswith("-")]
-
-    print(args, opts)
+    args = get_args()
+    pprint(args)
 
 
 if __name__ == "__main__":
