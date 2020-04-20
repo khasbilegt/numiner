@@ -1,12 +1,10 @@
-from argparse import ArgumentTypeError
-from argparse import Namespace
+from argparse import ArgumentTypeError, Namespace
 from pathlib import Path
 from unittest.mock import patch
 
 from pytest import raises
 
-from numiner.__main__ import existing_dir_path
-from numiner.__main__ import get_args
+from numiner.__main__ import existing_dir_path, get_args
 
 
 def test_parser():
