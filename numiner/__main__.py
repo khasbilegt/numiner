@@ -4,35 +4,49 @@ from pathlib import Path
 from pprint import pprint
 
 from numiner import __version__
+from numiner.classes.sheet import Sheet
 
 
-def existing_path(arg: str) -> Path:
+def existing_dir_path(arg: str) -> Path:
     path = Path(arg)
-
-    if not path.exists():
-        raise argparse.ArgumentTypeError(f"Couldn't find {arg}. Check and try again.")
-
-    return path
+    if path.exists() and path.is_dir():
+        return path
+    raise argparse.ArgumentTypeError(
+        f"Either couldn't find or it's not a directory. Check and try again."
+    )
 
 
 def get_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        usage="%(prog)s [OPTIONS] | [<path_1>] ... [<path_N>]", allow_abbrev=False
+        usage="%(prog)s [OPTIONS] | [<source_dir>] [<result_dir>]", allow_abbrev=False
     )
-    parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
-    parser.add_argument("-v", "--verbose", action="store_true", help="increase output verbosity")
+    parser.add_argument("-v", "--version", action="version", version=f"%(prog)s {__version__}")
     parser.add_argument(
-        "path",
-        nargs="+",
-        type=existing_path,
-        help="A path(s) to a folder or a sheet that's holding the data to mine",
+        "source",
+        type=existing_dir_path,
+        help="a path to a folder that's holding the <source> sheet images",
+    )
+    parser.add_argument(
+        "result",
+        type=existing_dir_path,
+        help="a path to a folder where all <result> images will be saved",
     )
     return parser.parse_args()
 
 
 def main():
     args = get_args()
-    pprint(args)
+
+    sheets = tuple(
+        Sheet(path.name)
+        for path in tuple(
+            path
+            for path in tuple(args.source.iterdir())
+            if path.stem.startswith("form") and path.suffix in (".jpg", ".png", "jpeg")
+        )
+    )
+
+    pprint(sheets)
 
 
 if __name__ == "__main__":

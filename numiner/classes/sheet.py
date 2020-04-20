@@ -14,5 +14,8 @@ class Sheet:
         self.seq = seq
         self.img = cv.imread(path)
 
+    def __repr__(self):
+        return f"<Sheet {self.path}, row={self.row}, col={self.col}>"
+
     def get_img(self):
         return self.img
