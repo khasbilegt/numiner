@@ -1,13 +1,12 @@
 import argparse
 
 from pathlib import Path
-from typing import Tuple
 
 from numiner import __version__
 from numiner.classes.sheet import Sheet
 
 
-def existing_dir_path(arg: str) -> Path:
+def existing_dir_path(arg):
     path = Path(arg)
     if path.exists() and path.is_dir():
         return path
@@ -16,13 +15,11 @@ def existing_dir_path(arg: str) -> Path:
     )
 
 
-def get_args() -> argparse.Namespace:
+def get_args():
     parser = argparse.ArgumentParser(
         usage="%(prog)s [OPTIONS] | [<source_dir>] [<result_dir>]", allow_abbrev=False
     )
-    parser.add_argument(
-        "-v", "--version", action="version", version=f"%(prog)s {__version__}"
-    )
+    parser.add_argument("-v", "--version", action="version", version=f"%(prog)s {__version__}")
     parser.add_argument(
         "source",
         type=existing_dir_path,
@@ -37,10 +34,10 @@ def get_args() -> argparse.Namespace:
 
 
 def main():
-    args: argparse.Namespace = get_args()
+    args = get_args()
 
-    sheets: Tuple[Sheet] = tuple(
-        Sheet(path)
+    sheets = tuple(
+        Sheet(path, args.result)
         for path in tuple(
             path
             for path in tuple(args.source.iterdir())
@@ -48,12 +45,8 @@ def main():
         )
     )
 
-    Sheet.show(
-        images=[sheets[0].get_original_img(), sheets[0].blur()],
-        positions=[121, 122],
-        titles=["Original", "Blurred"],
-        total=2,
-    )
+    for sheet in sheets:
+        sheet.process_sheet(save=True)
 
 
 if __name__ == "__main__":
