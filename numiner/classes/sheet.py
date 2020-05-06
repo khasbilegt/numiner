@@ -119,7 +119,7 @@ class Sheet:
 
     @classmethod
     def process_characters(cls, characters):
-        return tuple((label, Letter.get_char(label, char)) for label, char in characters[10:20])
+        return tuple((label, Letter.get_char(label, char)) for label, char in characters)
 
     def process_sheet(self, *, save: bool = False):
         form = self.get_form_container(self.source)

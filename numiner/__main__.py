@@ -109,11 +109,19 @@ def handle_sheet(path):
             raise RuntimeError(f"The given sheet ({source}) is invalid.")
 
 
+def handle_config(arg):
+    import json
+
+    with open(arg) as config_file:
+        config = json.load(config_file)
+        Sheet._CHARACTER_SEQUENCE = tuple(config["labels"].items())
+
+
 def main():
     args = get_args()
 
     if args.labels:
-        print(f"{args.labels = }")
+        handle_config(args.labels)
 
     if args.sheet:
         handle_sheet(args.sheet)

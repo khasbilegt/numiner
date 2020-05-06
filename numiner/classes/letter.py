@@ -113,6 +113,7 @@ class Letter:
         if char is not None:
             cv.imwrite(str(save_path), char)
         else:
+            print(f"[!] Couldn't save - {label} ({filename})")
             logging.warning(f"Couldn't save - {label} ({filename})")
 
     def process(self, *, save=True):
