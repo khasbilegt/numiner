@@ -1,52 +1,125 @@
 import argparse
+import logging
 
 from pathlib import Path
 
 from numiner import __version__
+from numiner.classes.letter import Letter
 from numiner.classes.sheet import Sheet
 
 
-def existing_dir_path(arg):
+def setup_log(path, option):
+    logging.basicConfig(
+        filename=path / f"numiner_{option}.log",
+        level=logging.WARNING,
+        format="%(asctime)s %(message)s",
+        datefmt="%Y/%m/%d %I:%M:%S %p",
+    )
+
+
+def existing_path(arg):
     path = Path(arg)
-    if path.exists() and path.is_dir():
+    if path.exists() and (path.is_dir() or path.is_file()):
         return path
     raise argparse.ArgumentTypeError(
-        f"Either couldn't find or it's not a directory. Check and try again."
+        "Either couldn't find or it's neither a directory nor a file. Check and try again."
     )
+
+
+def existing_json_file(arg):
+    path = Path(arg)
+    if path.exists() and path.is_file() and path.suffix == ".json":
+        return path
+    raise argparse.ArgumentTypeError("Invalid path to config json file. Check and try again.")
 
 
 def get_args():
-    parser = argparse.ArgumentParser(
-        usage="%(prog)s [OPTIONS] | [<source_dir>] [<result_dir>]", allow_abbrev=False
-    )
+    parser = argparse.ArgumentParser(allow_abbrev=False)
     parser.add_argument("-v", "--version", action="version", version=f"%(prog)s {__version__}")
     parser.add_argument(
-        "source",
-        type=existing_dir_path,
-        help="a path to a folder that's holding the <source> sheet images",
+        "-s",
+        "--sheet",
+        nargs=2,
+        metavar=("<source>", "<result>"),
+        type=existing_path,
+        help="a path to a folder or file that's holding the <source> sheet image(s) &\
+             a path to a folder where all <result> images will be saved",
     )
     parser.add_argument(
-        "result",
-        type=existing_dir_path,
-        help="a path to a folder where all <result> images will be saved",
+        "-l",
+        "--letter",
+        nargs=2,
+        metavar=("<source>", "<result>"),
+        type=existing_path,
+        help="a path to a folder or a file that's holding the cropped image(s) &\
+             a path to a folder where all <result> images will be saved",
+    )
+    parser.add_argument(
+        "-c",
+        dest="labels",
+        metavar="<path>",
+        type=existing_json_file,
+        help="a path to .json file that's holding top to bottom, left to right labels of the sheet with their ids",
     )
     return parser.parse_args()
+
+
+def handle_letter(path):
+    source = path[0]
+    result = path[1]
+
+    setup_log(result, "letter")
+
+    if source.is_dir():
+        for path in (
+            path for path in tuple(source.rglob("**/*")) if path.suffix in (".jpg", ".png", "jpeg")
+        ):
+            label = str(path.parent).split("/")[-1]
+            letter = Letter(path, result, label=label)
+            letter.process(save=True)
+    else:
+        label = str(source.parent).split("/")[-1]
+        letter = Letter(source, result, label=label)
+        letter.process(save=True)
+
+
+def handle_sheet(path):
+    source = path[0]
+    result = path[1]
+
+    setup_log(result, "sheet")
+
+    if source.is_dir():
+        sheets = tuple(
+            Sheet(path, result)
+            for path in tuple(
+                path
+                for path in tuple(source.iterdir())
+                if path.stem.startswith("SHEET") and path.suffix in (".jpg", ".png", "jpeg")
+            )
+        )
+
+        for sheet in sheets:
+            sheet.process_sheet(save=True)
+    else:
+        if source.stem.startswith("SHEET") and source.suffix in (".jpg", ".png", "jpeg"):
+            sheet = Sheet(source, result)
+            sheet.process_sheet(save=True)
+        else:
+            raise RuntimeError(f"The given sheet ({source}) is invalid.")
 
 
 def main():
     args = get_args()
 
-    sheets = tuple(
-        Sheet(path, args.result)
-        for path in tuple(
-            path
-            for path in tuple(args.source.iterdir())
-            if path.stem.startswith("SHEET") and path.suffix in (".jpg", ".png", "jpeg")
-        )
-    )
+    if args.labels:
+        print(f"{args.labels = }")
 
-    for sheet in sheets:
-        sheet.process_sheet(save=True)
+    if args.sheet:
+        handle_sheet(args.sheet)
+
+    if args.letter:
+        handle_letter(args.letter)
 
 
 if __name__ == "__main__":
