@@ -1,6 +1,10 @@
-# NUMiner
+<h2 align="center">
+  NUMiner
+</h2>
 
-NUMiner is a Python library for creating training image for Handwritten Text Recognition or HTR. It uses prebuilt
+<p align="center">This is a Python library that creates training images for Handwritten Text Recognition or HTR related researches</p>
+
+---
 
 ## Installation
 
