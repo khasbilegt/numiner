@@ -36,11 +36,17 @@ class Letter:
 
     @classmethod
     def get_gray_img(cls, source):
-        return cv.cvtColor(source, cv.COLOR_RGB2GRAY)
+        try:
+            return cv.cvtColor(source, cv.COLOR_RGB2GRAY) if source.size else None
+        except AttributeError:
+            return None
 
     @classmethod
     def get_blurred_img(cls, source):
-        return cv.GaussianBlur(source, cls._KSIZE, 0)
+        try:
+            return cv.GaussianBlur(source, cls._KSIZE, 0) if source.size else None
+        except AttributeError:
+            return None
 
     @classmethod
     def get_char(cls, label, source):
@@ -58,6 +64,9 @@ class Letter:
             point_y.append(y)
 
         points = list(zip(sorted(point_x), sorted(point_y)))
+
+        if not points:
+            return
 
         max_col = points[-1][0]
         max_row = points[-1][1]
@@ -117,5 +126,15 @@ class Letter:
             logging.warning(f"Couldn't save - {label} ({filename})")
 
     def process(self, *, save=True):
-        char = self.get_char(self.label, self.source)
-        return self.save(char, self.label, self.output, self.stem) if save else char
+        try:
+            if self.source.size:
+                char = self.get_char(self.label, self.source)
+                return self.save(char, self.label, self.output, self.stem) if save else char
+            else:
+                print(f"[!] Ignored - {self.path}")
+                logging.warning(f"Couldn't save - {self.label} ({self.path})")
+                return None
+        except AttributeError:
+            print(f"[!] Ignored - {self.path}")
+            logging.warning(f"Couldn't save - {self.label} ({self.path})")
+            return None
