@@ -23,6 +23,13 @@ repos:
         types: [python]
         exclude: setup.py
 
+      - id: bandit
+        name: bandit
+        description: "Bandit is a tool for finding common security issues in Python code"
+        entry: bandit
+        language: python
+        types: [python]
+
       - id: pytest
         name: pytest
         stages: [commit]
