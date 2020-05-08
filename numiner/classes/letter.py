@@ -97,8 +97,8 @@ class Letter:
         if cropped.size != 0:
             resized = cv.resize(cropped, cls._SIZE, interpolation=cv.INTER_AREA)
         else:
-            print(f"[!] Ignored - {label = }")
-            logging.warning(f"[!] Ignored - {label}")
+            print(f"[!] Ignored letter - {label}")
+            logging.warning(f"[!] Ignored letter - {label}")
             return
 
         _, final = cls.get_threshold(resized, cv.THRESH_BINARY + cv.THRESH_OTSU, adaptive=False)
@@ -131,10 +131,10 @@ class Letter:
                 char = self.get_char(self.label, self.source)
                 return self.save(char, self.label, self.output, self.stem) if save else char
             else:
-                print(f"[!] Ignored - {self.path}")
-                logging.warning(f"Couldn't save - {self.label} ({self.path})")
+                print(f"[!] Ignored letter - {self.path}")
+                logging.warning(f"Couldn't save letter - {self.label} ({self.path})")
                 return None
         except AttributeError:
-            print(f"[!] Ignored - {self.path}")
-            logging.warning(f"Couldn't save - {self.label} ({self.path})")
+            print(f"[!] Ignored letter - {self.path}")
+            logging.warning(f"Couldn't save letter - {self.label} ({self.path})")
             return None

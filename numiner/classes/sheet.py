@@ -122,18 +122,28 @@ class Sheet:
         return tuple((label, Letter.get_char(label, char)) for label, char in characters)
 
     def process_sheet(self, *, save: bool = False):
-        form = self.get_form_container(self.source)
-        form_save_path = self.output / Path(f"{self.get_id()}_form{self._OUPUT_FILE_EXTENSION}")
         try:
-            if form.any():
-                cv.imwrite(str(form_save_path), form)
-                characters = self.get_characters(form, self._CHARACTER_SEQUENCE, self.skip_char)
-                char_seq = self.process_characters(characters)
-                return self.save(char_seq, self.output, self.get_id()) if save else char_seq
-        except AttributeError:
-            raise RuntimeError(
-                f"The given sheet ({form_save_path}) can't be processed. Check and try again."
-            )
+            if not self.source:
+                print(f"[!] Couldn't save sheet - {self.path}")
+                logging.warning(f"[!] Couldn't save sheet - {self.path}")
+        except ValueError:
+            if self.source.size:
+                form = self.get_form_container(self.source)
+                form_save_path = self.output / Path(
+                    f"{self.get_id()}_form{self._OUPUT_FILE_EXTENSION}"
+                )
+                try:
+                    if form.any():
+                        cv.imwrite(str(form_save_path), form)
+                        characters = self.get_characters(
+                            form, self._CHARACTER_SEQUENCE, self.skip_char
+                        )
+                        char_seq = self.process_characters(characters)
+                        return self.save(char_seq, self.output, self.get_id()) if save else char_seq
+                except AttributeError:
+                    raise RuntimeError(
+                        f"The given sheet ({form_save_path}) can't be processed. Check and try again."
+                    )
 
     @classmethod
     def save(cls, characters, path, sheet_id):
@@ -149,8 +159,8 @@ class Sheet:
             if char is not None:
                 cv.imwrite(str(save_path), char)
             else:
-                print(f"[!] Couldn't save - {label = } ({filename})")
-                logging.warning(f"[!] Couldn't save - {label} ({filename})")
+                print(f"[!] Couldn't save sheet - {label = } ({filename})")
+                logging.warning(f"[!] Couldn't save sheet - {label} ({filename})")
 
     @classmethod
     def show(cls, images, positions, titles, total):

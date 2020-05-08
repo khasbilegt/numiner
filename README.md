@@ -2,6 +2,27 @@
   NUMiner
 </h1>
 
+<p align="center">
+  <a href="https://github.com/PyCQA/bandit">
+    <img src="https://img.shields.io/badge/security-bandit-yellow.svg"
+         alt="security: bandit">
+  </a>
+  <a href="https://www.python.org/">
+    <img src="https://img.shields.io/badge/Made%20with-Python-1f425f.svg"
+         alt="made-with-python">
+  </a>
+  <a href="https://badge.fury.io/py/numiner">
+    <img src="https://badge.fury.io/py/numiner.svg" alt="PyPI version" height="18">
+  </a>
+</p>
+
+<p align="center">
+  <a href="#installation">Installation</a> •
+  <a href="#how-to-use">How To Use</a> •
+  <a href="#contributing">Contributing</a> •
+  <a href="#license">License</a>
+</p>
+
 <p align="center">This is a Python library that creates training images for Handwritten Text Recognition or HTR related researches</p>
 
 ## Installation
@@ -12,7 +33,7 @@ Use the package manager [pip](https://pip.pypa.io/en/stable/) to install numiner
 pip install numiner
 ```
 
-## Usage
+## How To Use
 
 ## Contributing
 

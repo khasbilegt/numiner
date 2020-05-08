@@ -1,5 +1,6 @@
 import argparse
 import logging
+import sys
 
 from pathlib import Path
 
@@ -11,8 +12,8 @@ from numiner.classes.sheet import Sheet
 def setup_log(path, option):
     logging.basicConfig(
         filename=path / f"numiner_{option}.log",
-        level=logging.WARNING,
-        format="%(asctime)s %(message)s",
+        level=logging.INFO,
+        format="%(asctime)s :%(name)s: %(message)s",
         datefmt="%Y/%m/%d %I:%M:%S %p",
     )
 
@@ -33,7 +34,7 @@ def existing_json_file(arg):
     raise argparse.ArgumentTypeError("Invalid path to config json file. Check and try again.")
 
 
-def get_args():
+def create_argparser():
     parser = argparse.ArgumentParser(allow_abbrev=False)
     parser.add_argument("-v", "--version", action="version", version=f"%(prog)s {__version__}")
     parser.add_argument(
@@ -61,7 +62,7 @@ def get_args():
         type=existing_json_file,
         help="a path to .json file that's holding top to bottom, left to right labels of the sheet with their ids",
     )
-    return parser.parse_args()
+    return parser
 
 
 def handle_letter(path):
@@ -95,7 +96,9 @@ def handle_sheet(path):
             for path in tuple(
                 path
                 for path in tuple(source.iterdir())
-                if path.stem.startswith("SHEET") and path.suffix in (".jpg", ".png", "jpeg")
+                if path.stem.startswith("SHEET")
+                and len(path.stem.split("_")) >= 2
+                and path.suffix in (".jpg", ".png", "jpeg")
             )
         )
 
@@ -116,9 +119,20 @@ def handle_config(arg):
         config = json.load(config_file)
         Sheet._CHARACTER_SEQUENCE = tuple(config["labels"].items())
 
+    return Sheet._CHARACTER_SEQUENCE
+
+
+def handle_empty_args(args, parser):
+    if len(tuple(value for key, value in vars(args).items() if value is None)) == len(vars(args)):
+        parser.print_help()
+        sys.exit()
+
 
 def main():
-    args = get_args()
+    parser = create_argparser()
+    args = parser.parse_args()
+
+    handle_empty_args(args, parser)
 
     if args.labels:
         handle_config(args.labels)
