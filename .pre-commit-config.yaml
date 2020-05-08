@@ -26,7 +26,7 @@ repos:
       - id: bandit
         name: bandit
         description: "Bandit is a tool for finding common security issues in Python code"
-        entry: bandit
+        entry: poetry run bandit -r numiner
         language: python
         types: [python]
 
