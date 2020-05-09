@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "numiner"
-version = "0.1.1"
+version = "0.1.2"
 description = "NUM Miner (Tool to create open dataset for Handwritten Text Recognition)"
 authors = ["Khasbilegt.TS <khasbilegt.ts@gmail.com>"]
 license = "MIT"
@@ -14,6 +14,7 @@ opencv-python = "^4.2.0"
 pandas = "^1.0.3"
 matplotlib = "^3.2.1"
 coveralls = "^2.0.0"
+toml = "^0.10.0"
 
 [tool.poetry.dev-dependencies]
 black = "^19.10b0"

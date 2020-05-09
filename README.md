@@ -40,6 +40,46 @@ pip install numiner
 
 ## How To Use
 
+In general, the package has two main modes. One is `sheet` and another one is `letter`.
+
+`sheet` - takes a path called `<source>` to a folder that's holding all the scanned _sheet_ images or an actual image path and saves the processed images in the `<result>` path
+
+```bash
+$ numiner -s/--sheet <source> <result>
+```
+
+`letter` - takes a path called `<source>` to a folder that's holding all the cropped raw images or an actual image path and saves the processed images in the `<result>` path
+
+```bash
+$ numiner -l/--letter <source> <result>
+```
+
+Also you can override the default sheet labels by giving `json` file:
+
+```bash
+$ numiner -c path/to/labels.json -s path/to/source path/to/result
+```
+
+For sure you can also do this:
+
+```bash
+$ numiner --help
+
+usage: numiner [-h] [-v] [-s <source> <result>] [-l <source> <result>] [-c <path>]
+
+optional arguments:
+  -h, --help                    show this help message and exit
+  -v, --version                 show program's version number and exit
+  -s/--sheet <source> <result>  a path to a folder or file that's holding the <source>
+                                sheet image(s) & a path to a folder where all <result>
+                                images will be saved
+  -l/--letter <source> <result> a path to a folder or a file that's holding the cropped
+                                image(s) & a path to a folder where all <result> images
+                                will be saved
+  -c <path>                     a path to .json file that's holding top to bottom, left
+                                to right labels of the sheet with their ids
+```
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
