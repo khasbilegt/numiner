@@ -11,10 +11,13 @@
          alt="security: bandit">
   </a>
   <a href="https://badge.fury.io/py/numiner">
-    <img src="https://badge.fury.io/py/numiner.svg" alt="PyPI version" height="18">
+    <img src="https://badge.fury.io/py/numiner.svg" alt="PyPI version">
   </a>
   <a href='https://coveralls.io/github/khasbilegt/numiner?branch=master'>
     <img src='https://coveralls.io/repos/github/khasbilegt/numiner/badge.svg?branch=master' alt='Coverage Status' />
+  </a>
+  <a href='https://github.com/psf/black'>
+    <img src='https://img.shields.io/badge/code%20style-black-000000.svg' alt='Code style: black' />
   </a>
 </p>
 
