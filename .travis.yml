@@ -1,0 +1,20 @@
+language: python
+
+deploy:
+  provider: pypi
+  user: __token__
+  password:
+    secure: JdaahkEnvvthTnWBFV8/Ah9mfVR1qlKU95umqOO6gKG/3rDLv14MS+pkeyQYag4oaaWzjb6YBbNV29q06tkYs10CYrzBiamLo+T3E0qww9/TrOWbR7ps91YlQ3ZU9oizBHf8NnF4ecwuM734ebR7DCxFZSuGkUG0Zl0FOiGUOQb5YVfNEo2POyl25tzBDP/KwA7AGX1ydO2IOHYGc8GwIgYIoSRAm2uW50Ak6sjmwe8PZrT4+6si2BYg9FyHDkyociqY5TZfOrvZ9xZ8Ge1EPU8y5o/FfG5WWtGp7mzBS2svQyCS9jFkH/Nv8iijgWyCJ1AhUA2F86mH2ipMsZXlo2nlJEHfLlSBOB/AwHZj67bYea4ilDf/y6pO/pz/Sh9j13BlduSgkkTbgW5UbHCk7G71U2a+QJEhn+lbQbFZWDLJnN5sJRdonXD7aun0WvCvn7G0lEgYC89sm/w00uMFx+1nD4qNKIf9LSMqLrWRIxJ6xNixwWsCdjJGgtoZ+lkVUVkVtizxMQOl/a0GLdI9Xaf7yZyQysbZIWJGEt1kdDhQ7v0TzYaDAJdblTDWSJB//CfMa+xZx98cWZXXtoyZKG1G1Qc+oUmcuUuSQRQHypIsY+oYBgjzrg5l67/zyvph9dsuq5Rc7ZGb+qkIfscK/qw9Fm5gWKVsZUja7huCVzo=
+  skip_existing: true
+  on:
+    tags: true
+
+install:
+  - pip install poetry
+  - poetry install
+  - poetry install --dev
+script:
+  - poetry run bandit -r numiner
+  - poetry run pytest --cov --verbose
+after_success:
+  - coveralls

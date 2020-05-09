@@ -14,6 +14,9 @@
   <a href="https://badge.fury.io/py/numiner">
     <img src="https://badge.fury.io/py/numiner.svg" alt="PyPI version" height="18">
   </a>
+  <a href='https://coveralls.io/github/khasbilegt/numiner?branch=master'>
+    <img src='https://coveralls.io/repos/github/khasbilegt/numiner/badge.svg?branch=master' alt='Coverage Status' />
+  </a>
 </p>
 
 <p align="center">
