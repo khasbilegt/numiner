@@ -80,6 +80,12 @@ optional arguments:
                                 to right labels of the sheet with their ids
 ```
 
+## Sample Sheet image
+
+<p align="center">
+<img src="assets/sample_sheet.jpg" width="60%">
+</p>
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
