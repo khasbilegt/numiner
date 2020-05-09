@@ -1,26 +1,24 @@
 language: python
 python:
   - "3.8"
-
-deploy:
-  provider: pypi
-  user: __token__
-  password:
-    secure: JdaahkEnvvthTnWBFV8/Ah9mfVR1qlKU95umqOO6gKG/3rDLv14MS+pkeyQYag4oaaWzjb6YBbNV29q06tkYs10CYrzBiamLo+T3E0qww9/TrOWbR7ps91YlQ3ZU9oizBHf8NnF4ecwuM734ebR7DCxFZSuGkUG0Zl0FOiGUOQb5YVfNEo2POyl25tzBDP/KwA7AGX1ydO2IOHYGc8GwIgYIoSRAm2uW50Ak6sjmwe8PZrT4+6si2BYg9FyHDkyociqY5TZfOrvZ9xZ8Ge1EPU8y5o/FfG5WWtGp7mzBS2svQyCS9jFkH/Nv8iijgWyCJ1AhUA2F86mH2ipMsZXlo2nlJEHfLlSBOB/AwHZj67bYea4ilDf/y6pO/pz/Sh9j13BlduSgkkTbgW5UbHCk7G71U2a+QJEhn+lbQbFZWDLJnN5sJRdonXD7aun0WvCvn7G0lEgYC89sm/w00uMFx+1nD4qNKIf9LSMqLrWRIxJ6xNixwWsCdjJGgtoZ+lkVUVkVtizxMQOl/a0GLdI9Xaf7yZyQysbZIWJGEt1kdDhQ7v0TzYaDAJdblTDWSJB//CfMa+xZx98cWZXXtoyZKG1G1Qc+oUmcuUuSQRQHypIsY+oYBgjzrg5l67/zyvph9dsuq5Rc7ZGb+qkIfscK/qw9Fm5gWKVsZUja7huCVzo=
-  skip_existing: true
-  on:
-    tags: true
-
+cache: pip
+env:
+  global:
+    - secure: kQ6xE3dHo83HZ/I2bJI+s7kjlAE7qfBKGSx836fL29lt9kOOWDnKAnGS2iu20oO3yPD8MAOYQYn8CEF1elCjPRzUwJQQjX73wu65MQi2Y3+ZorIKog2NTM03JsDqJS7sNgkm8sDLafaaF59xKzHokdRJOw7EZmAFdioHzzp3qpLTMJryMUJAzZKSpliXuCUkkWst0baVNTc0y01VdvJ6JU4ZJ0ziVZZCaT7Ag8ffYgm/U9EIi3qrp+FNwjMQyafCk3J+lv4wTbX/zE2TGJp5hSqzpQOLcj3WB9UmPjwdjha6u1gxr5MKSr90g58cwvVTeCJHnoAeNllBHupQ3W8d0F5jv9jeH1tT2e65OqOglerBBEYT8yL0q5Le42KnSACGymOwsToX0NumPydxKw0j1AvCXnmk8y5g9EAl+pAItegLkwsBKQ7JdUWL5RcJpS0SULQ/y6gbkW2YwFSztja4QT2zLtdszuUDlApwQuV2Fv1sAcTK8Gk1P+41qpKR+i1Tl7Qf55iZUEhTzfP91KtOqAyIdYnamozuNQuAPnQFvbdx+CxmvLYs1YMR9qQeQKteXq89XOL5IBLkIRS/QuMZCRQ9vbAZ+YnS30ZDgZewvhg+HOeBWSag8VA4qV412P+oJYV5KIPG2l7+H7GoToTVCTe6xZtuZbuQSM5EgUO46Yc=
+    - secure: HLQF0v2632Vf/Bo9qzLBlvGzGqVbKpgWTiLKCzQvMz2hYKx1CcPgD1f3gcF5chhSOyuxhAiUhSEf/4/Kki8EEhDceybMiheaB+v5NUIbdR7kgkmcMmPxfpbU1Fgfe7bcpMDR074KOHgZCvhFit43DyLfjwvJ642vKjO5J+EE4TxQ0WADoYR+Isn1AeNUmB0Dnj4k8sgFUVIhuvri+Sg5G34BhEDVqyR2mUU3RezCtYDE5qSw4vpY6zfMYNQReRlLQFPX7dgJmCSlIgpYSJTydOfi36Eb8ZEtn4/veDdl3+FtCQ6aB/zOjX+JHial1sT6CArRHrm8FyyljMfRQNu73p/g3MoGRs13xCU467+J6fQ9BAbyInSvJKeVaGhh4+8mM+Lgx0asJCL64GSr1meb9/aGGLAMqYi84zz7UowDNYRBp5NlsQWh0O+lrClqv7/oGeSApbHC4S0ZElyb5lokorRHm9TJpcPVKNC4ts2GYYCnVDYlY8E8bXdKFcPTeYqjZ0+5ij0gjWYkm9+0JvJazYARuqn1y77pB2wBfMas7foCYcNLLeIYMYgnIT1cPAcf8LFC6Eqhz/G6nLNwmDJ7HosotOwC5HeRrI/cajSFJ6UqOW1BlFk3ay2G2VPev4jEAIvU/F5aIYh15DvWooZln/FgNh123R/ikztwFYTVX2c=
 install:
   - pip install poetry
   - poetry install
-
 script:
   - poetry run black --check .
   - poetry run flake8 **/*.py
   - poetry run bandit -r -ll **/*.py
   - poetry run bandit -r numiner
   - poetry run pytest --cov --verbose
-
+deploy:
+  provider: script
+  script: poetry publish --build --username=$PYPI_USER --password=$PYPI_PASSWORD
+  on:
+    tags: true
 after_success:
   - coveralls

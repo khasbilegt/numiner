@@ -128,6 +128,10 @@ def handle_empty_args(args, parser):
         sys.exit()
 
 
+def get_version():
+    print(__version__)
+
+
 def main():
     parser = create_argparser()
     args = parser.parse_args()

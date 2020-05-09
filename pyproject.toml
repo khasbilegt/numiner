@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "numiner"
-version = "0.1.1"
+version = "0.1.2"
 description = "NUM Miner (Tool to create open dataset for Handwritten Text Recognition)"
 authors = ["Khasbilegt.TS <khasbilegt.ts@gmail.com>"]
 license = "MIT"
@@ -26,6 +26,7 @@ bandit = "^1.6.2"
 
 [tool.poetry.scripts]
 numiner = "numiner.__main__:main"
+version = "numiner.__main__:get_version"
 
 [tool.black]
 line-length = 100
