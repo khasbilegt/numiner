@@ -16,6 +16,9 @@ install:
   - poetry install
 
 script:
+  - poetry run black --check .
+  - poetry run flake8 **/*.py
+  - poetry run bandit -r -ll **/*.py
   - poetry run bandit -r numiner
   - poetry run pytest --cov --verbose
 
