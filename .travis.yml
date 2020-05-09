@@ -14,9 +14,10 @@ deploy:
 install:
   - pip install poetry
   - poetry install
-  - poetry install --dev
+
 script:
   - poetry run bandit -r numiner
   - poetry run pytest --cov --verbose
+
 after_success:
   - coveralls
