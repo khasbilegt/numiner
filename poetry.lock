@@ -96,7 +96,7 @@ urwid = ["urwid"]
 watch = ["watchdog"]
 
 [[package]]
-category = "dev"
+category = "main"
 description = "Python package for providing Mozilla's CA Bundle."
 name = "certifi"
 optional = false
@@ -104,7 +104,7 @@ python-versions = "*"
 version = "2020.4.5.1"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "Universal encoding detector for Python 2 and 3"
 name = "chardet"
 optional = false
@@ -129,7 +129,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 version = "0.4.3"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "Code coverage measurement for Python"
 name = "coverage"
 optional = false
@@ -138,6 +138,22 @@ version = "5.1"
 
 [package.extras]
 toml = ["toml"]
+
+[[package]]
+category = "main"
+description = "Show coverage stats online via coveralls.io"
+name = "coveralls"
+optional = false
+python-versions = ">= 3.5"
+version = "2.0.0"
+
+[package.dependencies]
+coverage = ">=4.1,<6.0"
+docopt = ">=0.6.1"
+requests = ">=1.0.0"
+
+[package.extras]
+yaml = ["PyYAML (>=3.10)"]
 
 [[package]]
 category = "dev"
@@ -161,6 +177,14 @@ version = "0.10.0"
 
 [package.dependencies]
 six = "*"
+
+[[package]]
+category = "main"
+description = "Pythonic argument parser, that will make you smile"
+name = "docopt"
+optional = false
+python-versions = "*"
+version = "0.6.2"
 
 [[package]]
 category = "dev"
@@ -215,7 +239,7 @@ python-versions = "*"
 version = "0.4.15"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "Internationalized Domain Names in Applications (IDNA)"
 name = "idna"
 optional = false
@@ -462,7 +486,7 @@ python-versions = "*"
 version = "2020.4.4"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "Python HTTP for Humans."
 name = "requests"
 optional = false
@@ -524,7 +548,7 @@ python-versions = "*"
 version = "1.4.1"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
 name = "urllib3"
 optional = false
@@ -545,7 +569,7 @@ python-versions = "*"
 version = "0.1.9"
 
 [metadata]
-content-hash = "48da2f4708ebdeb3076fdbe1ebc8687c3b486afa2ea5f4988708dd853adae049"
+content-hash = "5d6cd07602611d9837f2b0ca87055d458c9834ca4447ba7eb20cade5c82ef2a0"
 python-versions = "^3.8"
 
 [metadata.files]
@@ -627,6 +651,10 @@ coverage = [
     {file = "coverage-5.1-cp39-cp39-win_amd64.whl", hash = "sha256:bb28a7245de68bf29f6fb199545d072d1036a1917dca17a1e75bbb919e14ee8e"},
     {file = "coverage-5.1.tar.gz", hash = "sha256:f90bfc4ad18450c80b024036eaf91e4a246ae287701aaa88eaebebf150868052"},
 ]
+coveralls = [
+    {file = "coveralls-2.0.0-py2.py3-none-any.whl", hash = "sha256:41bd57b60321dfd5b56e990ab3f7ed876090691c21a9e3b005e1f6e42e6ba4b9"},
+    {file = "coveralls-2.0.0.tar.gz", hash = "sha256:d213f5edd49053d03f0db316ccabfe17725f2758147afc9a37eaca9d8e8602b5"},
+]
 curtsies = [
     {file = "curtsies-0.3.1-py2.py3-none-any.whl", hash = "sha256:9169d734323a1356e7563b1ca0bff3c5358c1b1dcce52506a9d4d8ab8a8f5604"},
     {file = "curtsies-0.3.1.tar.gz", hash = "sha256:b2c913a8113c4382e1a221679f2338139b112839deb16c00ee873e57a4b33bd4"},
@@ -634,6 +662,9 @@ curtsies = [
 cycler = [
     {file = "cycler-0.10.0-py2.py3-none-any.whl", hash = "sha256:1d8a5ae1ff6c5cf9b93e8811e581232ad8920aeec647c37316ceac982b08cb2d"},
     {file = "cycler-0.10.0.tar.gz", hash = "sha256:cd7b2d1018258d7247a71425e9f26463dfb444d411c39569972f4ce586b0c9d8"},
+]
+docopt = [
+    {file = "docopt-0.6.2.tar.gz", hash = "sha256:49b3a825280bd66b3aa83585ef59c4a8c82f2c8a522dbe754a8bc8d08c85c491"},
 ]
 entrypoints = [
     {file = "entrypoints-0.3-py2.py3-none-any.whl", hash = "sha256:589f874b313739ad35be6e0cd7efde2a4e9b6fea91edcc34e58ecbb8dbe56d19"},
