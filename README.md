@@ -86,13 +86,35 @@ optional arguments:
 <img src="assets/sample_sheet.jpg" width="60%">
 </p>
 
+## Extracted letters from the sheet
+
+<p align="center">
+<img src="assets/sheet_segmented.png">
+</p>
+
+## Final image processing order
+
+Followed the same approach that EMNIST used when they were first creating their dataset from NIST SD images.
+
+1. Letter extracted from the sheet
+2. Letter itself fitted into a square shape plus 2 pixel wide borders on each side without losing the aspect ratio
+3. Image is resized to 28x28 pixels
+4. Final image
+
+<p align="center">
+<img src="assets/letter_a_binary.png" width="20%">
+<img src="assets/letter_a_cropped.png" width="20%">
+<img src="assets/letter_a_resized.png" width="20%">
+<img src="assets/letter_a_final.png" width="20%">
+</p>
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
 
-if you want to read more about how this project came to life, you can go ahead and check out my [thesis work](https://github.com/khasbilegt/thesis-report)
+If you want to read more about how this project came to life, you can check out my [thesis report](https://github.com/khasbilegt/thesis-report).
 
 ## License
 
