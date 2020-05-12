@@ -28,7 +28,7 @@
   <a href="#license">License</a>
 </p>
 
-<p align="center">This is a Python library that creates training images for Handwritten Text Recognition or HTR related researches</p>
+<p align="center">This is a Python library that creates MNIST like training dataset for Handwritten Text Recognition related researches</p>
 
 ## Installation
 
@@ -91,6 +91,8 @@ optional arguments:
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
+
+if you want to read more about how this project came to life, you can go ahead and check out my [thesis work](https://github.com/khasbilegt/thesis-report)
 
 ## License
 
