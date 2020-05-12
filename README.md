@@ -114,7 +114,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 Please make sure to update tests as appropriate.
 
-If you want to read more about how this project came to life, you can check out my [thesis report](https://github.com/khasbilegt/thesis-report).
+If you want to read more about how this project came to life, you can check out my [thesis report](https://github.com/khasbilegt/thesis-report/blob/master/main.pdf).
 
 ## License
 
