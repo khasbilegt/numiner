@@ -80,7 +80,9 @@ def test_invalid_existing_json_file(input, tmp_path):
         assert existing_json_file(input)
 
 
-@pytest.mark.parametrize("argv", ["-s", "--sheet", "-l", "--letter", "-c", "-v", "--version"])
+@pytest.mark.parametrize(
+    "argv", ["-s", "--sheet", "-l", "--letter", "--labels", "-v", "--version", "convert"]
+)
 def test_create_argparser(argv, tmp_path, capsys):
     parser = create_argparser()
 
@@ -101,12 +103,20 @@ def test_create_argparser(argv, tmp_path, capsys):
     elif argv in ("-v", "--version"):
         with pytest.raises(SystemExit):
             assert parser.parse_args([argv])
-    else:
+    elif argv == "--labels":
         path = tmp_path / "config.json"
         if not path.exists():
             path.touch()
         args = parser.parse_args([argv, str(path)])
         assert args.labels == path
+    elif argv == "convert":
+        with pytest.raises(SystemExit):
+            assert parser.parse_args([argv])
+
+        args = parser.parse_args([argv, "-p", str(tmp_path), str(tmp_path), "1", "20"])
+        assert args.paths == [tmp_path, tmp_path]
+        assert args.size == 1
+        assert args.ratio == str(20)
 
 
 def test_handle_empty_args():

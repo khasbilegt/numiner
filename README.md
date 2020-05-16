@@ -57,7 +57,7 @@ $ numiner -l/--letter <source> <result>
 Also you can override the default sheet labels by giving `json` file:
 
 ```bash
-$ numiner -c path/to/labels.json -s path/to/source path/to/result
+$ numiner --labels path/to/labels.json -s path/to/source path/to/result
 ```
 
 For sure you can also do this:
@@ -70,14 +70,32 @@ usage: numiner [-h] [-v] [-s <source> <result>] [-l <source> <result>] [-c <path
 optional arguments:
   -h, --help                    show this help message and exit
   -v, --version                 show program's version number and exit
+  --clean <path>
   -s/--sheet <source> <result>  a path to a folder or file that's holding the <source>
                                 sheet image(s) & a path to a folder where all <result>
                                 images will be saved
   -l/--letter <source> <result> a path to a folder or a file that's holding the cropped
                                 image(s) & a path to a folder where all <result> images
                                 will be saved
-  -c <path>                     a path to .json file that's holding top to bottom, left
+  --labels <path>               a path to .json file that's holding top to bottom, left
                                 to right labels of the sheet with their ids
+```
+
+```bash
+$ numiner convert --help
+
+usage: numiner convert [-h] -p <src> <dest> SIZE RATIO
+
+positional arguments:
+  SIZE                  number of images that each class contains
+  RATIO                 test, train or percentage of the test data
+                        in that case the rest of it will become
+                        train data
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -p <src> <dest>, --paths <src> <dest>
+                        source and destination paths
 ```
 
 ## Sample Sheet image
