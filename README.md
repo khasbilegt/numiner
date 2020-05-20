@@ -104,6 +104,8 @@ optional arguments:
 <img src="assets/sample_sheet.jpg" width="60%">
 </p>
 
+You can get empty sheet file from [here](assets/sheet.pdf).
+
 ## Extracted letters from the sheet
 
 <p align="center">
