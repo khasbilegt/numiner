@@ -116,17 +116,24 @@ You can also get the empty sheet file from [here](assets/sheet.pdf).
 
 Followed the same approach that EMNIST used when they were first creating their dataset from NIST SD images.
 
-1. Letter extracted from the sheet
-2. Letter itself fitted into a square shape plus 2 pixel wide borders on each side without losing the aspect ratio
-3. Image is resized to 28x28 pixels
-4. Final image
-
-<p align="center">
-<img src="assets/letter_a_binary.png" width="20%">
-<img src="assets/letter_a_cropped.png" width="20%">
-<img src="assets/letter_a_resized.png" width="20%">
-<img src="assets/letter_a_final.png" width="20%">
-</p>
+<ul align="center" style="list-style-type: none">
+  <li>
+    <p>1. Letter extracted from the sheet</p>
+    <img src="assets/letter_a_original.png" width="80%">
+  </li>
+  <li>
+    <p>2. Binary version of original image</p>
+    <img src="assets/letter_a_binary.png" width="80%">
+  </li>
+  <li>
+    <p>3. Letter itself fitted into a square shape plus 2 pixel wide borders on each side without losing the aspect ratio</p>
+    <img src="assets/letter_a_cropped.png" width="80%">
+  </li>
+  <li>
+    <p>4. From previous step, image resized to 28x28 and taken threshold results in final image</p>
+    <img src="assets/letter_a_final.png" width="80%">
+  </li>
+</ul>
 
 ## Contributing
 
