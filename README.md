@@ -24,6 +24,7 @@
 <p align="center">
   <a href="#installation">Installation</a> •
   <a href="#how-to-use">How To Use</a> •
+  <a href="#sample-sheet-image">Sheet</a> •
   <a href="#contributing">Contributing</a> •
   <a href="#license">License</a>
 </p>
@@ -35,7 +36,19 @@
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install numiner.
 
 ```bash
-pip install numiner
+$ pip install numiner
+```
+
+Use the package manager [pipenv](https://pypi.org/project/pipenv/) to install numiner.
+
+```bash
+$ pipenv install numiner
+```
+
+Use the package manager [poetry](https://pypi.org/project/poetry/) to install numiner.
+
+```bash
+$ poetry add numiner
 ```
 
 ## How To Use
